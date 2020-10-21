@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog Home{% endblock %}
+
+{% block body %}
+
+<main class="container">
+    <div class="detail">
+        <a href="/">Go Back</a>
+
+        <h1>Details of: <span> {{post.title|upper}} </span> </h1>
+        <hr>
+
+        <h4>Author: {{ post.author }}</h4>
+        <h5>The {{ post.createdAt|date("d/m/y") }}</h5>
+        <p>{{ post.content }}</p>
+        <hr>
+        <img src="https://loremflickr.com/240/120?random ~ {{post.id}}" alt="">
+    </div>
+
+</main>
+{% endblock %}
