@@ -17,6 +17,18 @@
             <hr>
             <img src="https://loremflickr.com/280/160?random= ~ {{key}}" alt="">
             <a href="{{path('detail', { id: post.id})}}">Details </a>
+            <hr>
+            <div class="comments">
+                <h4>{{post.comments|length}} Comments</h4>
+                {% for com in post.comments|slice(0,3) %}
+
+                <p> {{com.content}} <br>
+                    <span>Posted by {{com.author}}</span>
+                </p>
+
+                {% endfor %}
+                <span>...</span>
+            </div>
         </div>    
         {% endfor %}
     </div>

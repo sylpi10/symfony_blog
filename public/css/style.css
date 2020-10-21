@@ -42,6 +42,20 @@
     padding:8px 14px;
     margin:10px auto;
 }
+.comments{
+    background-color: rgb(240, 240, 240);
+} 
+.comments p {
+    border: solid 1px #ccc;
+    padding: 10px;
+    padding-bottom: 40px;
+}
+.comments span {
+    float: right;
+    font-size: 0.8rem;
+    color: navy;
+    margin-top: 14px;
+}
 hr{
     width: 100%;
     border-top: rgba(0,0,0,.3) solid 1px;

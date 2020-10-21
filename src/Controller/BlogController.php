@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +23,7 @@ class BlogController extends AbstractController
      */
     public function index(PostRepository $repo): Response
     {
-       $posts = $repo->findall();
+       $posts = $repo->getPostsAndComs();
 
         return $this->render('home/index.html.twig', [
             'posts' => $posts

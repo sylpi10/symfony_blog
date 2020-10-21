@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -22,8 +23,18 @@ class AppFixtures extends Fixture
         $post->setContent($faker->text());
         $post->setAuthor($faker->name());
         $post->setCreatedAt(new \DateTime());
-
+        
         $manager->persist($post);
+        
+        for ($j=0; $j < rand(4,15); $j++) { 
+            $com = new Comment();
+            $com->setAuthor($faker->name());
+            $com->setContent($faker->text());
+            $com->setPostedAt(new \DateTime);
+            $com->setPost($post);
+        
+            $manager->persist($com);
+        }
         }
         $manager->flush();
     }
