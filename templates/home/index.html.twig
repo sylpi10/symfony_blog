@@ -22,12 +22,13 @@
                 <h4>{{post.comments|length}} Comments</h4>
                 {% for com in post.comments|slice(0,3) %}
 
-                <p> {{com.content}} <br>
+                <p> {{com.content|slice(0,60)}} ... <br>
                     <span>Posted by {{com.author}}</span>
                 </p>
 
                 {% endfor %}
-                <span>...</span>
+             
+             
             </div>
         </div>    
         {% endfor %}
