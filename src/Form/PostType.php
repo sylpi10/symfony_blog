@@ -18,19 +18,23 @@ class PostType extends AbstractType
     {
         $builder
             ->add('author', TextType::class, [
-                'label' => 'name'
+                'label' => 'Author\'s Name'
             ])
             ->add('title', TextType::class, [
-                'label' => 'Title:'
+                'label' => 'Post Title:'
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Text:'
             ])
             ->add('file', FileType::class, [
+                'required' => false,
                 'mapped' => false,
                 'constraints' => [
                     new Image(),
-                    new NotNull()
+                    new NotNull([
+                        // validation group -> so we don't have to add a pic on update
+                        "groups" => "create"
+                    ])
                 ]
             ])
         ;

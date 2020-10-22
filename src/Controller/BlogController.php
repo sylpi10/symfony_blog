@@ -73,25 +73,31 @@ class BlogController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function create(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, string $uploadsAbsoluteDir, string $uploadsRelativeDir): Response  
+    public function create(Request $request, 
+    EntityManagerInterface $manager, 
+    SluggerInterface $slugger, string $uploadsAbsoluteDir, 
+    string $uploadsRelativeDir): Response  
     {
         $post = new Post();
-        $form = $this->createForm(PostType::class, $post)->handleRequest($request);
+        $form = $this->createForm(PostType::class, $post, [
+            "validation_groups" => ["Default", "create"]
+        ])->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /**@var UploadedFile $file */
             $file = $form->get('file')->getData();
 
-            $filename = sprintf(
-                "%s_%s.%s",
-                $slugger->slug($file->getClientOriginalName()),
-                    uniqid(),
-                    $file->getClientOriginalExtension()
-                );
-            
-         
-
-            $file->move($uploadsAbsoluteDir, $filename);
-            $post->setImage($uploadsRelativeDir . "/" . $filename);
+            if ($file != null) {
+                $filename = sprintf(
+                    "%s_%s.%s",
+                    $slugger->slug($file->getClientOriginalName()),
+                        uniqid(),
+                        $file->getClientOriginalExtension()
+                    );
+    
+                $file->move($uploadsAbsoluteDir, $filename);
+                $post->setImage($uploadsRelativeDir . "/" . $filename);
+            }
+          
             $manager->persist($post);
             $manager->flush();
             //without redirection, com will be re-posted on each reload (f5) 
@@ -108,10 +114,25 @@ class BlogController extends AbstractController
      * @param Post $post
      * @return Response
      */
-    public function update(Request $request, EntityManagerInterface $manager, Post $post): Response  
+    public function update(Request $request,
+     EntityManagerInterface $manager, Post $post, 
+     SluggerInterface $slugger, string $uploadsAbsoluteDir, 
+     string $uploadsRelativeDir): Response  
     {
         $form = $this->createForm(PostType::class, $post)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+             /**@var UploadedFile $file */
+             $file = $form->get('file')->getData();
+
+             $filename = sprintf(
+                 "%s_%s.%s",
+                 $slugger->slug($file->getClientOriginalName()),
+                     uniqid(),
+                     $file->getClientOriginalExtension()
+                 );
+ 
+             $file->move($uploadsAbsoluteDir, $filename);
+             $post->setImage($uploadsRelativeDir . "/" . $filename);
             $manager->flush();
             //without redirection, com will be re-posted on each reload (f5) 
             return $this->redirectToRoute("detail", ["id" => $post->getId()]);
