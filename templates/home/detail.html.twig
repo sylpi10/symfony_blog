@@ -5,6 +5,9 @@
 {% block body %}
 
 <main class="container">
+    <div class="detail-container">
+
+
     <div class="detail">
         <a href="/">Go Back</a>
 
@@ -15,22 +18,30 @@
         <h5>The {{ post.createdAt|date("d/m/y") }}</h5>
         <p>{{ post.content }}</p>
         <hr>
-        <img src="https://loremflickr.com/240/120?random ~ {{post.id}}" alt="">
-        <hr>
-        <h4>{{post.comments|length}} Comments</h4>
-        {% for com in post.comments %}
+        <img src="https://loremflickr.com/240/120?random ~ {{post.id}}" alt="" width="420">
 
-        <p> {{com.content|slice(0,60)}} ... <br>
-            <span>Posted by {{com.author}}</span>
-        </p>
-
-        {% endfor %}
     </div>
+            <div class="comments">
     
-    {{form_start(form)}}
-    {{form_widget(form)}}
-    <button id="send-com" type="submit">Comment</button>
-    {{form_end(form)}}
+                <h4>{{post.comments|length}} Comments</h4>
+                {% for com in post.comments %}
+                
+                <p> {{com.content|slice(0,60)}} ... <br>
+                    <span>Posted by: {{com.author}}</span>
+                </p>
+                
+                {% endfor %}
+
+            </div>
+            <div class="add-com">
+                <h5>Post a comment</h5>
+                {{form_start(form)}}
+                {{form_widget(form)}}
+                <button id="send-com" type="submit">Comment</button>
+                {{form_end(form)}}
+            </div>
+        </div>   
+              
 
 </main>
 {% endblock %}

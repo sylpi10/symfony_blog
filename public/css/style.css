@@ -1,3 +1,6 @@
+html, body{
+    box-sizing: border-box;
+}
 .container{
     width: 74%;
     margin: auto;
@@ -41,12 +44,48 @@
     text-align: center;
     padding:8px 14px;
     margin:10px auto;
+    border-radius: 6px;
+    text-decoration: none;
 }
-.comments{
-    background-color: rgb(240, 240, 240);
-} 
+.post a:hover, .detail a:hover{
+    opacity: .8;
+}
+
+hr{
+    width: 100%;
+    border-top: rgba(0,0,0,.3) solid 1px;
+    border-bottom: transparent;
+}
+
+
+/* details*/
+.detail-container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 30px;
+}
+.detail{
+    padding:30px 40px 0px 40px;
+    box-shadow: 2px 2px 2px #ccc, -2px -2px 2px #ccc;
+    height: 500px;
+    width: 60%;
+}
+
+.detail span{
+    color: rgb(60, 106, 134);
+}
+.detail-container .comments{
+    box-shadow: 2px 2px 2px #ccc, -2px -2px 2px #ccc;
+    height: 506px;
+    width: 25%;
+    overflow-x: hidden;
+    padding: 12px;
+}
 .comments p {
-    border: solid 1px #ccc;
+    border: solid 1px #eee;
+    background-color: rgba(140, 221, 246, .1);
     padding: 10px;
     padding-bottom: 40px;
 }
@@ -55,23 +94,21 @@
     font-size: 0.8rem;
     color: navy;
     margin-top: 14px;
-}
-hr{
-    width: 100%;
-    border-top: rgba(0,0,0,.3) solid 1px;
-    border-bottom: transparent;
+    font-style: italic;
 }
 
-.detail{
-    padding: 40px;
-}
-.detail span{
-    color: rgb(60, 106, 134);
+.add-com{
+    align-self: flex-end;
+    text-align: center;
+    margin: 20px;
+    border: solid 1px #ccc;
+    padding: 12px;
 }
 #send-com{
     background-color: rgb(22, 71, 233);
     padding: 8px 16px;
     margin: 12px;
     color:#fff;
-    border: solid 1px #333;
+    border: none;
+    border-radius: 4px;
 }
