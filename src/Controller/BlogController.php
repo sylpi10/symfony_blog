@@ -38,7 +38,7 @@ class BlogController extends AbstractController
             6
         );
       
-        return $this->render('home/index.html.twig', [
+        return $this->render('blog/index.html.twig', [
             'posts' => $posts,
             
         ]);
@@ -60,7 +60,7 @@ class BlogController extends AbstractController
             //without redirection, com will be re-posted on each reload (f5) 
             return $this->redirectToRoute("detail", ["id" => $post->getId()]);
         }
-        return $this->render('home/detail.html.twig', [
+        return $this->render('blog/detail.html.twig', [
             'post' => $post,
             'form' => $form->createView()
         ]);
@@ -68,6 +68,8 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/publish-article", name="publish")
+     * @param Request $request
+     * @return Response
      */
     public function create(Request $request, EntityManagerInterface $manager): Response  
     {
@@ -79,7 +81,26 @@ class BlogController extends AbstractController
             //without redirection, com will be re-posted on each reload (f5) 
             return $this->redirectToRoute("detail", ["id" => $post->getId()]);
         }
-        return $this->render("create.html.twig", [
+        return $this->render("blog/create.html.twig", [
+            "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/update-article/{id}", name="update")
+     * @param Request $request
+     * @param Post $post
+     * @return Response
+     */
+    public function update(Request $request, EntityManagerInterface $manager, Post $post): Response  
+    {
+        $form = $this->createForm(PostType::class, $post)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+            //without redirection, com will be re-posted on each reload (f5) 
+            return $this->redirectToRoute("detail", ["id" => $post->getId()]);
+        }
+        return $this->render("blog/update.html.twig", [
             "form" => $form->createView()
         ]);
     }

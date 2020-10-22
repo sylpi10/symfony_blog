@@ -7,7 +7,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use PhpParser\ErrorHandler\Collecting;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -28,11 +28,15 @@ class Post
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
+     *  @Assert\Length(min=6)
      */
     private $content;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
+     * @Assert\Length(min=2)
      */
     private $author;
 

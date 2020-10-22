@@ -38,8 +38,7 @@ html, body{
     margin: auto;
     align-self: center;
 }
-.post a, .go-back{
-    background-color: #333;
+.post a, .go-back, .update-btn{
     color: #fff;
     /* width: 60px; */
     text-align: center;
@@ -48,12 +47,13 @@ html, body{
     border-radius: 6px;
     text-decoration: none;
 }
-.go-back{
+.go-back, .detail-link{
     margin-top: 14px;
+    background-color: #333;
 }
-.post a:hover, .go-back:hover{
-    background-color: rgba(51,51,51,.9);
+.post a:hover, .go-back:hover, .update-btn:hover{
     color:#fff;
+    opacity: .9;
     text-decoration: none;
 }
 
@@ -77,6 +77,7 @@ hr{
     background-color: #333333 !important;
     color: #fff !important;
 }
+
 /* details*/
 .detail-container{
     display: flex;
@@ -101,6 +102,15 @@ hr{
     width: 28%;
     overflow-x: hidden;
     padding: 12px;
+}
+.links{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.links .update-btn{
+    background-color: green;
+    color: #fff;
 }
 .comments p {
     border: solid 1px #eee;
