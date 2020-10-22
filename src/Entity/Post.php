@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,7 +30,7 @@ class Post
      * @ORM\Column(type="text")
      */
     private $content;
-    
+
     /**
      * @ORM\Column(type="text")
      */
@@ -45,6 +46,12 @@ class Post
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
      */
     private $comments;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTime();
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -97,7 +104,7 @@ class Post
 
         return $this;
     }
-    public function getComments(): Collection 
+    public function getComments(): Collection
     {
         return $this->comments;
     }

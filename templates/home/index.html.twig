@@ -5,7 +5,9 @@
 {% block body %}
 
 <main class="container">
-    
+    <h3>
+        <a href="{{path('publish')}}">Create a New Article</a>
+    </h3>
     <div class="posts-wrapper">
         {% for key, post in posts %}
         <div class="post">

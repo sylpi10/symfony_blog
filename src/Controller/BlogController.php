@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -62,6 +63,24 @@ class BlogController extends AbstractController
         return $this->render('home/detail.html.twig', [
             'post' => $post,
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/publish-article", name="publish")
+     */
+    public function create(Request $request, EntityManagerInterface $manager): Response  
+    {
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($post);
+            $manager->flush();
+            //without redirection, com will be re-posted on each reload (f5) 
+            return $this->redirectToRoute("detail", ["id" => $post->getId()]);
+        }
+        return $this->render("create.html.twig", [
+            "form" => $form->createView()
         ]);
     }
 }
