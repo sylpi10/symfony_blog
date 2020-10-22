@@ -19,7 +19,7 @@ html, body{
     border: solid 1px #ccc;
     margin: 12px;
     padding: 12px;
-    flex-basis: 300px;
+    flex-basis: 320px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
@@ -76,7 +76,7 @@ hr{
     padding:30px 40px 0px 40px;
     box-shadow: 2px 2px 2px #ccc, -2px -2px 2px #ccc;
     height: 500px;
-    width: 60%;
+    width: 64%;
 }
 
 .detail span{
@@ -85,7 +85,7 @@ hr{
 .detail-container .comments{
     box-shadow: 2px 2px 2px #ccc, -2px -2px 2px #ccc;
     height: 506px;
-    width: 25%;
+    width: 28%;
     overflow-x: hidden;
     padding: 12px;
 }

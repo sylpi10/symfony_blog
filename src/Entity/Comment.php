@@ -6,6 +6,7 @@ use App\Entity\Post;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
 use PhpParser\Node\Expr\PostInc;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -21,11 +22,15 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     *  @Assert\Length(min=2)
      */
     private $author;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
+     * @Assert\Length(min=5)
      */
     private $content;
 
