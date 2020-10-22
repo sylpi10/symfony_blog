@@ -16,7 +16,8 @@
             <h5>The {{ post.createdAt|date("d/m/y") }}</h5>
             <p>{{ post.content }}</p>
             <hr>
-            <img src="https://loremflickr.com/280/160?random= ~ {{key}}" alt="">
+            {# <img src="https://loremflickr.com/280/160?random= ~ {{key}}" alt=""> #}
+            <img src="{{asset(post.image)}}" alt="{{post.title}}" width="280">
             <hr>
             <div class="comments">
                 <h4>{{post.comments|length}} Comments</h4>

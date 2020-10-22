@@ -22,6 +22,7 @@ class AppFixtures extends Fixture
         $post->setTitle($faker->sentence($nbWords = 2, $variableNbWords = true));
         $post->setContent($faker->text());
         $post->setAuthor($faker->name());
+        $post->setImage('https://loremflickr.com/380/260?random' . $i);
         $post->setCreatedAt(new \DateTime());
         
         $manager->persist($post);
