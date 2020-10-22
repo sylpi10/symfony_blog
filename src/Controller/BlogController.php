@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * class BlogController
@@ -71,11 +73,25 @@ class BlogController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function create(Request $request, EntityManagerInterface $manager): Response  
+    public function create(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, string $uploadsAbsoluteDir, string $uploadsRelativeDir): Response  
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            /**@var UploadedFile $file */
+            $file = $form->get('file')->getData();
+
+            $filename = sprintf(
+                "%s_%s.%s",
+                $slugger->slug($file->getClientOriginalName()),
+                    uniqid(),
+                    $file->getClientOriginalExtension()
+                );
+            
+         
+
+            $file->move($uploadsAbsoluteDir, $filename);
+            $post->setImage($uploadsRelativeDir . "/" . $filename);
             $manager->persist($post);
             $manager->flush();
             //without redirection, com will be re-posted on each reload (f5) 
