@@ -7,15 +7,12 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
-use App\Repository\CommentRepository;
+use App\Uploader\UploaderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Laminas\EventManager\EventManagerInterface;
-use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -33,7 +30,6 @@ class BlogController extends AbstractController
     {
         // $posts = $repo->getPostsAndComs();
         
-        // $posts = $repo->getPostsAndComsPaginated();
         $posts = $paginator->paginate(
             $repo->getPostsAndComsPaginated(),
             $request->query->getInt('page', 1),
@@ -74,29 +70,18 @@ class BlogController extends AbstractController
      * @return Response
      */
     public function create(Request $request, 
-    EntityManagerInterface $manager, 
-    SluggerInterface $slugger, string $uploadsAbsoluteDir, 
-    string $uploadsRelativeDir): Response  
+    EntityManagerInterface $manager, UploaderInterface $upload): Response  
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post, [
             "validation_groups" => ["Default", "create"]
         ])->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             /**@var UploadedFile $file */
             $file = $form->get('file')->getData();
-
-            if ($file != null) {
-                $filename = sprintf(
-                    "%s_%s.%s",
-                    $slugger->slug($file->getClientOriginalName()),
-                        uniqid(),
-                        $file->getClientOriginalExtension()
-                    );
-    
-                $file->move($uploadsAbsoluteDir, $filename);
-                $post->setImage($uploadsRelativeDir . "/" . $filename);
-            }
+        
+            $post->setImage($upload->upload($file));
           
             $manager->persist($post);
             $manager->flush();
@@ -115,24 +100,17 @@ class BlogController extends AbstractController
      * @return Response
      */
     public function update(Request $request,
-     EntityManagerInterface $manager, Post $post, 
-     SluggerInterface $slugger, string $uploadsAbsoluteDir, 
-     string $uploadsRelativeDir): Response  
+     EntityManagerInterface $manager, Post $post, UploaderInterface $upload): Response  
     {
         $form = $this->createForm(PostType::class, $post)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
              /**@var UploadedFile $file */
              $file = $form->get('file')->getData();
 
-             $filename = sprintf(
-                 "%s_%s.%s",
-                 $slugger->slug($file->getClientOriginalName()),
-                     uniqid(),
-                     $file->getClientOriginalExtension()
-                 );
- 
-             $file->move($uploadsAbsoluteDir, $filename);
-             $post->setImage($uploadsRelativeDir . "/" . $filename);
+             if ($file != null) {
+                $post->setImage($upload->upload($file));
+            }
+          
             $manager->flush();
             //without redirection, com will be re-posted on each reload (f5) 
             return $this->redirectToRoute("detail", ["id" => $post->getId()]);
