@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Article{% endblock %}
+
+{% block body %}
+
+<main class="container">
+          
+            <div class="add-com">
+                <h2>Post an Article</h2>
+                {# {{form_start(form)}}
+                {{form_widget(form)}}
+                <button id="send-com" type="submit">Post</button>
+                {{form_end(form)}} #}
+                {% include 'blog/_form.html.twig' with {form: form, buttonName: 'Publish'} %}
+            </div>
+        </div>   
+
+
+</main>
+{% endblock %}

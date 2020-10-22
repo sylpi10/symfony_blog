@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Update Article{% endblock %}
+
+{% block body %}
+
+<main class="container">
+          
+            <div class="add-com">
+                <h2>Update an Article</h2>
+                {% include 'blog/_form.html.twig' with {form: form, buttonName: 'Update'} %}
+            </div>
+        </div>   
+
+
+</main>
+{% endblock %}

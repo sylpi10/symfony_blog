@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog Home{% endblock %}
+
+{% block body %}
+
+<main class="container">
+    <h3>
+        <a href="{{path('publish')}}">Create a New Article</a>
+    </h3>
+    <div class="posts-wrapper">
+        {% for key, post in posts %}
+        <div class="post">
+            <h1> {{ post.title }}! </h1>
+            <h4>By {{ post.author }}</h4>
+            <h5>The {{ post.createdAt|date("d/m/y") }}</h5>
+            <p>{{ post.content }}</p>
+            <hr>
+            <img src="https://loremflickr.com/280/160?random= ~ {{key}}" alt="">
+            <hr>
+            <div class="comments">
+                <h4>{{post.comments|length}} Comments</h4>
+            </div>
+            <a href="{{path('detail', { id: post.id})}}" class="detail-link">Details </a>
+        </div>    
+        {% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(posts) }}
+    </div>
+
+</main>
+{% endblock %}
