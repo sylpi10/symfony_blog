@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Post;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,18 +18,25 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PostRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator )
     {
         parent::__construct($registry, Post::class);
+        // $this->paginator = $paginator;
     }
 
-    public function getPostsAndComs(): array
+    public function getPostsAndComsPaginated(): Query
     {
         return $this->createQueryBuilder("p")
         ->addSelect('c')
         ->join('p.comments', 'c')
-        ->getQuery()
-        ->getResult();
+        // ->setMaxResults($limit)
+        // ->setFirstResult(($page * $limit) - $limit)
+        ->getQuery();
+        // ->getResult();
+
+        // $query = $query->getQuery(); 
+        // return $query;
+          
     }
 
     // /**

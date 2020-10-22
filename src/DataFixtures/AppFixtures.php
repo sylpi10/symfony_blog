@@ -17,7 +17,7 @@ class AppFixtures extends Fixture
 
         $faker = Factory::create('fr_FR');
 
-        for ($i=0; $i < 20; $i++) { 
+        for ($i=0; $i < 60; $i++) { 
         $post = new Post();
         $post->setTitle($faker->sentence($nbWords = 2, $variableNbWords = true));
         $post->setContent($faker->text());

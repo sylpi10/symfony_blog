@@ -8,6 +8,7 @@ use App\Form\CommentType;
 use App\Repository\PostRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Laminas\EventManager\EventManagerInterface;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,9 +26,16 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(PostRepository $repo): Response
+    public function index(PostRepository $repo, PaginatorInterface $paginator,Request $request): Response
     {
-        $posts = $repo->getPostsAndComs();
+        // $posts = $repo->getPostsAndComs();
+        
+        // $posts = $repo->getPostsAndComsPaginated();
+        $posts = $paginator->paginate(
+            $repo->getPostsAndComsPaginated(),
+            $request->query->getInt('page', 1),
+            6
+        );
       
         return $this->render('home/index.html.twig', [
             'posts' => $posts,
