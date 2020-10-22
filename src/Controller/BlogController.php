@@ -48,6 +48,8 @@ class BlogController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($comment);
             $manager->flush();
+            //without redirection, com will be re-posted on each reload (f5) 
+            return $this->redirectToRoute("detail", ["id" => $post->getId()]);
         }
         return $this->render('home/detail.html.twig', [
             'post' => $post,

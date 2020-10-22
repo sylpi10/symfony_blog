@@ -3,8 +3,9 @@ html, body{
 }
 .container{
     width: 74%;
-    margin: auto;
+    margin:20px auto;
     border: solid 1px #ccc;
+    padding-top: 14px;
 }
 
 .posts-wrapper{
@@ -37,18 +38,23 @@ html, body{
     margin: auto;
     align-self: center;
 }
-.post a, .detail a{
+.post a, .go-back{
     background-color: #333;
     color: #fff;
-    width: 60px;
+    /* width: 60px; */
     text-align: center;
     padding:8px 14px;
     margin:10px auto;
     border-radius: 6px;
     text-decoration: none;
 }
-.post a:hover, .detail a:hover{
+.go-back{
+    margin-top: 14px;
+}
+.post a:hover, .go-back:hover{
     opacity: .8;
+    color:#fff;
+    text-decoration: none;
 }
 
 hr{

@@ -5,11 +5,11 @@
 {% block body %}
 
 <main class="container">
+    <a href="/" class="go-back">Go Back</a>
     <div class="detail-container">
 
 
     <div class="detail">
-        <a href="/">Go Back</a>
 
         <h1>Details of: <span> {{post.title|upper}} </span> </h1>
         <hr>
@@ -18,7 +18,7 @@
         <h5>The {{ post.createdAt|date("d/m/y") }}</h5>
         <p>{{ post.content }}</p>
         <hr>
-        <img src="https://loremflickr.com/240/120?random ~ {{post.id}}" alt="" width="420">
+        <img src="https://loremflickr.com/240/120?random ~ {{post.id}}" alt="" width="320">
 
     </div>
             <div class="comments">
@@ -33,6 +33,7 @@
                 {% endfor %}
 
             </div>
+          
             <div class="add-com">
                 <h5>Post a comment</h5>
                 {{form_start(form)}}
@@ -41,7 +42,7 @@
                 {{form_end(form)}}
             </div>
         </div>   
-              
+
 
 </main>
 {% endblock %}
