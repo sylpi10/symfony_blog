@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Security\Voter\PostVoter;
 use App\Uploader\UploaderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -72,7 +73,10 @@ class BlogController extends AbstractController
     public function create(Request $request, 
     EntityManagerInterface $manager, UploaderInterface $upload): Response  
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $post = new Post();
+        $post->setUser($this->getUser());
         $form = $this->createForm(PostType::class, $post, [
             "validation_groups" => ["Default", "create"]
         ])->handleRequest($request);
@@ -102,6 +106,9 @@ class BlogController extends AbstractController
     public function update(Request $request,
      EntityManagerInterface $manager, Post $post, UploaderInterface $upload): Response  
     {
+
+        $this->denyAccessUnlessGranted(PostVoter::EDIT, $post);
+
         $form = $this->createForm(PostType::class, $post)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
              /**@var UploadedFile $file */

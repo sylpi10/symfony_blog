@@ -6,9 +6,10 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker\Factory;
 
-class AppFixtures extends Fixture
+class AppFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -22,6 +23,7 @@ class AppFixtures extends Fixture
         $post->setTitle($faker->sentence($nbWords = 2, $variableNbWords = true));
         $post->setContent($faker->text());
         $post->setAuthor($faker->name());
+        $post->setUser($this->getReference(sprintf("user-%d", ($i % 10) +1 )));
         $post->setImage('https://loremflickr.com/380/260?random' . $i);
         $post->setCreatedAt(new \DateTime());
         
@@ -38,5 +40,10 @@ class AppFixtures extends Fixture
         }
         }
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [UserFixtures::class];
     }
 }

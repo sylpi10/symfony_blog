@@ -8,6 +8,19 @@
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
     </head>
     <body>
+        <nav>
+            
+            {% if is_granted('ROLE_USER') %}
+            <a href="{{path('home')}}">Home</a>
+            <a href="{{path('publish')}}">Create a New Article</a>
+            
+            <a href="{{path('logout')}}" class="btn btn-danger">Logout</a>
+            {% else %}
+            <a href="{{path('login')}}">Login</a>
+            <a href="{{path('registration')}}">Register</a>
+            {% endif %}
+            
+        </nav>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
