@@ -1,6 +1,18 @@
 html, body{
     box-sizing: border-box;
 }
+ nav{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    background-color: #333;
+    height: 60px;
+    align-items: center;
+}
+ nav a{
+    color: #fff;
+    text-decoration: none;
+}
 .container{
     width: 74%;
     margin:20px auto;
