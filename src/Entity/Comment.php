@@ -25,13 +25,13 @@ class Comment
      * @Assert\NotBlank
      *  @Assert\Length(min=2)
      */
-    private $author;
+    // private $author;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank
-     * @Assert\Length(min=5)
-     */
+    // /**
+    //  * @ORM\Column(type="text")
+    //  * @Assert\NotBlank
+    //  * @Assert\Length(min=5)
+    //  */
     private $content;
 
     /**
@@ -45,22 +45,27 @@ class Comment
      */
     private $post;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
+    // public function getAuthor(): ?string
+    // {
+    //     return $this->author;
+    // }
 
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
+    // public function setAuthor(string $author): self
+    // {
+    //     $this->author = $author;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getContent(): ?string
     {
@@ -99,6 +104,18 @@ class Comment
     public function setPostedAt(\DateTimeInterface $postedAt): self
     {
         $this->postedAt = $postedAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

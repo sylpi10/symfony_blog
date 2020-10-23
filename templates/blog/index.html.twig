@@ -9,7 +9,7 @@
         {% for key, post in posts %}
         <div class="post">
             <h2> {{ post.title }}! {{post.id}}</h2>
-            <h4>By {{ post.author }}</h4>
+            <h4>By {{ post.user.pseudo }}</h4>
             <h5>The {{ post.createdAt|date("d/m/y") }}</h5>
             <p>{{ post.content }}</p>
             <hr>

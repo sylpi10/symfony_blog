@@ -22,7 +22,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $post = new Post();
         $post->setTitle($faker->sentence($nbWords = 2, $variableNbWords = true));
         $post->setContent($faker->text());
-        $post->setAuthor($faker->name());
+        // $post->setAuthor($faker->name());
         $post->setUser($this->getReference(sprintf("user-%d", ($i % 10) +1 )));
         $post->setImage('https://loremflickr.com/380/260?random' . $i);
         $post->setCreatedAt(new \DateTime());
@@ -31,7 +31,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         
         for ($j=0; $j < rand(4,15); $j++) { 
             $com = new Comment();
-            $com->setAuthor($faker->name());
+            $com->setUser($this->getReference(sprintf("user-%d", ($i % 10) +1 )));
             $com->setContent($faker->text());
             $com->setPostedAt(new \DateTime);
             $com->setPost($post);

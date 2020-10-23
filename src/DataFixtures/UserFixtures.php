@@ -23,12 +23,15 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+
+        $faker = Factory::create('fr_FR');
+
         for ($i=1; $i <= 10; $i++) { 
             $user = new User();
             $user->setEmail(
                 sprintf("email_%d@email.com", $i)
             );
-            $user->setPseudo(sprintf("pseudo_%d", $i));
+            $user->setPseudo($faker->name());
             $user->setPassword($this->encoder->encodePassword($user, "password"));
             $manager->persist($user);
             $this->setReference(sprintf("user-%d", $i), $user);

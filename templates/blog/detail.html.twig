@@ -16,7 +16,7 @@
         <h1>Details of: <span> {{post.title|upper}} </span> </h1>
         <hr>
 
-        <h4>Author: {{ post.author }}</h4>
+        <h4>Author: {{ post.user.pseudo }}</h4>
         <h5>The {{ post.createdAt|date("d/m/y") }}</h5>
         <p>{{ post.content }}</p>
         <hr>
@@ -30,7 +30,7 @@
                 {% for com in post.comments %}
                 
                 <p> {{com.content|slice(0,60)}} ... <br>
-                    <span>Posted by: {{com.author}}</span>
+                    <span>Posted by: {{com.user.pseudo}}</span>
                 </p>
                 
                 {% endfor %}

@@ -33,12 +33,12 @@ class Post
      */
     private $content;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank
-     * @Assert\Length(min=2)
-     */
-    private $author;
+    // /**
+    //  * @ORM\Column(type="text")
+    //  * @Assert\NotBlank
+    //  * @Assert\Length(min=2)
+    //  */
+    // private $author;
 
     /**
      * @ORM\Column(type="datetime")
@@ -85,16 +85,16 @@ class Post
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
+    // public function getAuthor(): ?string
+    // {
+    //     return $this->author;
+    // }
+    // public function setAuthor(string $author): self
+    // {
+    //     $this->author = $author;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getContent(): ?string
     {

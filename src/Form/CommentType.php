@@ -22,12 +22,12 @@ class CommentType extends AbstractType
     {
         // parent::buildForm($builder, $options);
         $builder
-        ->add('author', TextType::class, [
-            'label' => false,
-            'attr' => [
-                'placeholder' => 'Pseudo'
-            ]
-        ])
+        // ->add('author', TextType::class, [
+        //     'label' => false,
+        //     'attr' => [
+        //         'placeholder' => 'Pseudo'
+        //     ]
+        // ])
         ->add('content', TextareaType::class, [
             'label' => false,
             'attr' => [

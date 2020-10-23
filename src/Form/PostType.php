@@ -17,9 +17,9 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('author', TextType::class, [
-                'label' => 'Author\'s Name'
-            ])
+            // ->add('author', TextType::class, [
+            //     'label' => 'Author\'s Name'
+            // ])
             ->add('title', TextType::class, [
                 'label' => 'Post Title:'
             ])
