@@ -23,10 +23,10 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $auth): Response
     {
         $form = $this->createForm(LoginType::class, new Credentials($auth->getLastUsername()));
+        $error = $auth->getLastAuthenticationError(false);
 
-        if (null !== $auth->getLastAuthenticationError()) {
-            $form->addError(new FormError(
-                $auth->getLastAuthenticationError()->getMessage()
+        if (null !== $error) {
+            $form->addError(new FormError($error->getMessage()
             ));
         }
 
