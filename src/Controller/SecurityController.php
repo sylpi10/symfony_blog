@@ -34,4 +34,12 @@ class SecurityController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+        /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout(): void
+    {
+        
+    }
 }
