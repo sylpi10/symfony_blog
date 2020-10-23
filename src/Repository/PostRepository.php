@@ -26,11 +26,12 @@ class PostRepository extends ServiceEntityRepository
 
     public function getPostsAndComsPaginated(): Query
     {
-        return $this->createQueryBuilder("p")
-        ->addSelect('c')
-        ->join('p.comments', 'c')
+        return $this->createQueryBuilder('p')
+        ->addSelect('c', 'p')
+        ->leftJoin('p.comments', 'c')
         // ->setMaxResults($limit)
         // ->setFirstResult(($page * $limit) - $limit)
+        ->orderBy('p.createdAt', 'desc')
         ->getQuery();
         // ->getResult();
 

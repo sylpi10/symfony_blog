@@ -11,7 +11,7 @@
     <div class="posts-wrapper">
         {% for key, post in posts %}
         <div class="post">
-            <h1> {{ post.title }}! </h1>
+            <h1> {{ post.title }}! {{post.id}}</h1>
             <h4>By {{ post.author }}</h4>
             <h5>The {{ post.createdAt|date("d/m/y") }}</h5>
             <p>{{ post.content }}</p>
@@ -19,9 +19,11 @@
             {# <img src="https://loremflickr.com/280/160?random= ~ {{key}}" alt=""> #}
             <img src="{{asset(post.image)}}" alt="{{post.title}}" width="280">
             <hr>
+            {% if post.comments %}
             <div class="comments">
                 <h4>{{post.comments|length}} Comments</h4>
             </div>
+            {% endif %}
             <a href="{{path('detail', { id: post.id})}}" class="detail-link">Details </a>
         </div>    
         {% endfor %}

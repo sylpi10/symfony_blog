@@ -114,7 +114,7 @@ class Post
 
         return $this;
     }
-    public function getComments(): Collection
+    public function getComments(): ?Collection
     {
         return $this->comments;
     }
