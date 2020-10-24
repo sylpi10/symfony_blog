@@ -23,7 +23,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $auth): Response
     {
         $form = $this->createForm(LoginType::class, new Credentials($auth->getLastUsername()));
-        $error = $auth->getLastAuthenticationError(false);
+        $error = $auth->getLastAuthenticationError();
 
         if (null !== $error) {
             $form->addError(new FormError($error->getMessage()
@@ -35,7 +35,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @Route("/logout", name="logout")
      */
     public function logout(): void

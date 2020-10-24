@@ -13,7 +13,7 @@
 
     <div class="detail">
 
-        <h1>Details of: <span> {{post.title|upper}} </span> </h1>
+        <h2>Details of: <span> {{post.title|upper}} </span> </h2>
         <hr>
 
         <h4>Author: {{ post.user.pseudo }}</h4>
@@ -30,7 +30,9 @@
                 {% for com in post.comments %}
                 
                 <p> {{com.content|slice(0,60)}} ... <br>
+                    {# {% if is_granted('ROLE_USER') %} #}
                     <span>Posted by: {{com.user.pseudo}}</span>
+                    {# {% endif %} #}
                 </p>
                 
                 {% endfor %}
@@ -41,7 +43,15 @@
                 <h5>Post a comment</h5>
                 {{form_start(form)}}
                 {{form_widget(form)}}
+
+                {% if is_granted('ROLE_USER') %}
                 <button id="send-com" type="submit">Comment</button>
+                {% else %}
+                    <button class="btn btn-primary" disabled>Comment</button>
+                    <span>Register to add comments</span>
+                {% endif %}
+
+
                 {{form_end(form)}}
             </div>
         </div>   

@@ -51,7 +51,9 @@ class BlogController extends AbstractController
 
         $comment = new Comment();
         $comment->setPost($post);
-        $comment->setUser($this->getUser());
+        if ($this->isGranted('ROLE_USER')) {
+            $comment->setUser($this->getUser());
+        }
         $comment->setPostedAt(new \DateTime);
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

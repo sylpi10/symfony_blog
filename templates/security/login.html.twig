@@ -5,9 +5,15 @@
 {% block body %}
     <div class="container">
         <h1>Login</h1>
+        {% for message in app.flashes('success') %}
+        <div class="flash-notice alert alert-success w-50">
+            {{ message }}
+        </div>
+        {% endfor %}
         <hr>
         {{form_start(form)}}
             {{form_errors(form)}}
+            {# {{form_widget(form)}} #}
             {{form_row(form.username)}}
             {{form_row(form.password)}}
             <button type="submit" class="btn btn-primary my-3">Login</button>
